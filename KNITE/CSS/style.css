@@ -1,36 +1,87 @@
-/* Global Styles */
+/* Modern Aesthetic Styles */
+:root {
+  --primary: #f59795;
+  --dark: #0a0a0a;
+  --light: #f8f8f8;
+  --gray: #2a2a2a;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #1a1a1a;
-  color: #fff;
-  line-height: 1.6;
+  background-color: var(--dark);
+  color: var(--light);
+  line-height: 1.7;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
-/* Layout Structure */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* Add these new styles to your existing CSS */
+
+/* Link Styling */
+a {
+  text-decoration: none; /* Removes all underlines */
+  color: inherit; /* Inherits parent color by default */
+  transition: var(--transition);
 }
 
-main {
-  flex: 1;
-  padding-bottom: 60px; /* Footer height */
+.kta-link {
+  color: var(--primary);
+  font-weight: inherit;
+  position: relative;
 }
 
+.kta-link:hover {
+  color: var(--primary);
+}
+
+.kta-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary);
+  transition: var(--transition);
+}
+
+.kta-link:hover::after {
+  width: 100%;
+}
+
+/* Social Links */
+.social-links a {
+  text-decoration: none;
+  color: var(--light);
+  transition: var(--transition);
+}
+
+/* Navigation Links */
+.nav-list a {
+  text-decoration: none;
+}
+
+/* Footer Links */
+.footer-right a {
+  text-decoration: none;
+  color: var(--primary);
+}
 /* Navigation */
 nav {
-  background-color: #111;
-  padding: 1rem 2rem;
+  background-color: rgba(10, 10, 10, 0.96);
+  padding: 1.2rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(245, 151, 149, 0.1);
 }
 
 .nav-brand {
@@ -39,107 +90,340 @@ nav {
 }
 
 .logo {
-  color: #f59795;
-  font-size: 2rem;
-  font-weight: bold;
-  letter-spacing: 2px;
+  color: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .tagline {
   color: #aaa;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
 }
 
 .nav-list {
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   padding: 0;
   margin: 0;
 }
 
 .nav-list a {
-  color: #fff;
+  color: var(--light);
   text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   padding: 0.5rem 0;
   position: relative;
+  transition: var(--transition);
 }
 
 .nav-list a:hover {
-  color: #f59795;
+  color: var(--primary);
 }
 
-.nav-list a.active {
-  color: #f59795;
-}
-
-.nav-list a.active::after {
+.nav-list a::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary);
+  transition: var(--transition);
+}
+
+.nav-list a:hover::after {
   width: 100%;
-  height: 2px;
-  background-color: #f59795;
 }
 
-/* Hero Image */
-.hero-image {
-  display: flex;
-  justify-content: center;
+/* Main Content */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  flex: 1;
+}
+
+.content-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
   align-items: center;
-  margin: 2rem auto;
-  max-width: 900px;
 }
 
-.featured-image {
-  max-width: 100%;
+.image-box {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transform: translateY(0);
+  transition: var(--transition);
+}
+
+.image-box:hover {
+  transform: translateY(-8px);
+}
+
+.profile-image {
+  width: 100%;
   height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease;
+  display: block;
+  transition: var(--transition);
 }
 
-.featured-image:hover {
-  transform: scale(1.02);
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 151, 149, 0.1),
+    rgba(10, 10, 10, 0.3)
+  );
+}
+
+.intro-box {
+  padding: 1rem;
+}
+
+.greeting {
+  color: var(--primary);
+  font-weight: 400;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.intro-box h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  margin: 2rem 0;
+  width: 80px;
+}
+
+.bio {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  color: #ddd;
+}
+
+.cta-button {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.8rem 2rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cta-button:hover {
+  background: var(--primary);
+  color: var(--dark);
+  box-shadow: 0 0 20px rgba(245, 151, 149, 0.3);
 }
 
 /* Footer */
 footer {
-  background-color: #111;
-  color: #f59795;
-  text-align: center;
-  padding: 1.5rem;
-  width: 100%;
-  height: 60px;
-  flex-shrink: 0;
+  background-color: rgba(10, 10, 10, 0.96);
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid rgba(245, 151, 149, 0.1);
+  gap: 2rem;
 }
 
-/* Responsive adjustments */
+.social-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.social-links a {
+  color: var(--light);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 151, 149, 0.3);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-links a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), transparent);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 0;
+}
+
+.social-links a i {
+  position: relative;
+  z-index: 1;
+}
+
+.social-links a:hover {
+  color: var(--light);
+  transform: translateY(-5px);
+  border-color: var(--primary);
+}
+
+.social-links a:hover::before {
+  opacity: 0.4;
+}
+
+/* Platform-specific hover colors */
+.social-links a[aria-label="Instagram"]:hover {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+}
+.social-links a[aria-label="Facebook"]:hover {
+  background: #1877f2;
+}
+.social-links a[aria-label="Twitter"]:hover {
+  background: #1da1f2;
+}
+.social-links a[aria-label="Twitch"]:hover {
+  background: #9146ff;
+}
+.social-links a[aria-label="TikTok"]:hover {
+  background: #000;
+}
+.social-links a[aria-label="YouTube"]:hover {
+  background: #ff0000;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.rights {
+  font-size: 0.7rem;
+  color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-box {
+    gap: 3rem;
+  }
+
+  .intro-box h1 {
+    font-size: 2.4rem;
+  }
+}
+
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
-    padding: 1rem;
+    padding: 1.5rem;
+    gap: 1.5rem;
   }
 
-  .nav-brand {
-    margin-bottom: 1rem;
+  .content-box {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .image-box {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .intro-box {
     text-align: center;
   }
 
+  .divider {
+    margin: 2rem auto;
+  }
+}
+
+@media (max-width: 480px) {
   .nav-list {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+    gap: 1.5rem;
   }
 
-  .hero-image {
-    margin: 1rem;
+  .intro-box h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .social-links {
+    gap: 1rem;
+  }
+
+  .social-links a {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
   }
 }

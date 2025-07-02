@@ -1,21 +1,27 @@
-// Highlight current page in navigation
 document.addEventListener('DOMContentLoaded', function() {
+    // Highlight current page in navigation
     const currentPage = location.pathname.split('/').pop();
-    const navLinks = document.querySelectorAll('.nav-list a');
-    
-    navLinks.forEach(link => {
+    document.querySelectorAll('.nav-list a').forEach(link => {
         if (link.getAttribute('href') === currentPage) {
             link.classList.add('active');
         }
     });
     
-    // Contact form handling
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            contactForm.reset();
+    // CTA button interaction
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function() {
+            window.location.href = 'album.html';
         });
     }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 });
