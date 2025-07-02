@@ -4,7 +4,18 @@
   --dark: #0a0a0a;
   --light: #f8f8f8;
   --gray: #2a2a2a;
-  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -17,14 +28,28 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* Add these new styles to your existing CSS */
+/* Page Transition Overlay */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
 
 /* Link Styling */
 a {
-  text-decoration: none; /* Removes all underlines */
-  color: inherit; /* Inherits parent color by default */
+  text-decoration: none;
+  color: inherit;
   transition: var(--transition);
 }
 
@@ -53,23 +78,6 @@ a {
   width: 100%;
 }
 
-/* Social Links */
-.social-links a {
-  text-decoration: none;
-  color: var(--light);
-  transition: var(--transition);
-}
-
-/* Navigation Links */
-.nav-list a {
-  text-decoration: none;
-}
-
-/* Footer Links */
-.footer-right a {
-  text-decoration: none;
-  color: var(--primary);
-}
 /* Navigation */
 nav {
   background-color: rgba(10, 10, 10, 0.96);
@@ -82,6 +90,7 @@ nav {
   z-index: 100;
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(245, 151, 149, 0.1);
+  transition: var(--transition);
 }
 
 .nav-brand {
@@ -95,6 +104,7 @@ nav {
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
+  transition: var(--transition);
 }
 
 .tagline {
@@ -103,6 +113,7 @@ nav {
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-top: 0.2rem;
+  transition: var(--transition);
 }
 
 .nav-list {
@@ -144,6 +155,15 @@ nav {
   width: 100%;
 }
 
+.nav-list a.active {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.nav-list a.active::after {
+  width: 100%;
+}
+
 /* Main Content */
 .container {
   max-width: 1400px;
@@ -165,11 +185,12 @@ nav {
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   transform: translateY(0);
-  transition: var(--transition);
+  transition: var(--transition), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .image-box:hover {
   transform: translateY(-8px);
+  box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.6);
 }
 
 .profile-image {
@@ -190,6 +211,7 @@ nav {
     rgba(245, 151, 149, 0.1),
     rgba(10, 10, 10, 0.3)
   );
+  transition: var(--transition);
 }
 
 .intro-box {
@@ -201,6 +223,7 @@ nav {
   font-weight: 400;
   display: block;
   margin-bottom: 0.5rem;
+  transition: var(--transition);
 }
 
 .intro-box h1 {
@@ -208,6 +231,7 @@ nav {
   font-weight: 700;
   line-height: 1.2;
   margin: 0 0 1.5rem 0;
+  transition: var(--transition);
 }
 
 .subtitle {
@@ -215,6 +239,7 @@ nav {
   color: #ccc;
   margin-bottom: 2rem;
   font-weight: 300;
+  transition: var(--transition);
 }
 
 .divider {
@@ -222,12 +247,14 @@ nav {
   background: linear-gradient(90deg, var(--primary), transparent);
   margin: 2rem 0;
   width: 80px;
+  transition: var(--transition);
 }
 
 .bio {
   font-size: 1.1rem;
   margin-bottom: 2.5rem;
   color: #ddd;
+  transition: var(--transition);
 }
 
 .cta-button {
@@ -240,13 +267,40 @@ nav {
   letter-spacing: 1.5px;
   border-radius: 30px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--transition), transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .cta-button:hover {
   background: var(--primary);
   color: var(--dark);
-  box-shadow: 0 0 20px rgba(245, 151, 149, 0.3);
+  box-shadow: 0 10px 20px rgba(245, 151, 149, 0.3);
+  transform: translateY(-3px);
+}
+
+.cta-button:active {
+  transform: translateY(1px);
+}
+
+/* Ripple effect for button */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(10);
+    opacity: 0;
+  }
 }
 
 /* Footer */
@@ -258,6 +312,7 @@ footer {
   align-items: center;
   border-top: 1px solid rgba(245, 151, 149, 0.1);
   gap: 2rem;
+  transition: var(--transition);
 }
 
 .social-container {
@@ -360,11 +415,13 @@ footer {
   font-size: 0.8rem;
   color: var(--primary);
   letter-spacing: 1px;
+  transition: var(--transition);
 }
 
 .rights {
   font-size: 0.7rem;
   color: #666;
+  transition: var(--transition);
 }
 
 /* Responsive Design */
