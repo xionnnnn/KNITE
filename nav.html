@@ -35,7 +35,7 @@
         color: var(--light);
         font-size: 1.5rem;
         cursor: pointer;
-        transition: var(--transition);
+        transition: all 0.3s ease;
         position: absolute;
         left: 1rem;
         z-index: 101;
@@ -44,6 +44,7 @@
     
     .mobile-menu-button:hover {
         color: var(--primary);
+        transform: scale(1.1);
     }
     
     /* Active page style */
@@ -68,11 +69,23 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
+        backdrop-filter: blur(2px);
     }
     
     .menu-overlay.active {
         opacity: 1;
         pointer-events: all;
+    }
+    
+    /* Side panel animations */
+    @keyframes slideIn {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
     }
     
     /* Responsive adjustments */
@@ -92,41 +105,68 @@
             text-align: center;
             margin: 0 auto;
             z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-brand.menu-open {
+            transform: translateX(20%);
         }
         
         .nav-list {
             position: fixed;
             top: 0;
-            left: -100%;
-            width: 80%;
-            max-width: 300px;
-            height: 100vh;
-            background-color: var(--dark);
+            left: 0;
+            width: 70%;
+            height: 100dvh;
+            min-height: -webkit-fill-available;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(5px);
             flex-direction: column;
             align-items: flex-start;
             justify-content: flex-start;
             padding: 5rem 2rem;
             gap: 1.5rem;
-            transition: all 0.3s ease;
-            pointer-events: all;
             z-index: 100;
             margin-top: 0;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            border-right: 1px solid rgba(245, 151, 149, 0.1);
+            box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            overflow-y: auto;
         }
         
         .nav-list.active {
-            left: 0;
+            transform: translateX(0);
+            animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .nav-list.closing {
+            animation: slideOut 0.3s cubic-bezier(0.76, 0, 0.24, 1);
         }
         
         .nav-list li {
             width: 100%;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-list.active li {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: calc(0.1s * var(--i));
         }
         
         .nav-list a {
             display: block;
-            padding: 0.5rem 0;
+            padding: 0.8rem 0;
             width: 100%;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-list a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
         }
         
         /* Logo adjustments for mobile */
@@ -137,6 +177,47 @@
         .tagline {
             font-size: 0.6rem;
         }
+
+        /* Height-responsive adjustments */
+        @media (max-height: 700px) {
+            .nav-list {
+                padding-top: 4rem;
+                gap: 1.2rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .nav-list {
+                padding-top: 3rem;
+                padding-bottom: 2rem;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-height: 500px) {
+            .nav-list {
+                padding-top: 2.5rem;
+                gap: 0.8rem;
+            }
+            
+            .nav-list a {
+                padding: 0.6rem 0;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-height: 400px) {
+            .nav-list {
+                padding-top: 2rem;
+                padding-bottom: 1rem;
+                gap: 0.5rem;
+            }
+            
+            .nav-list a {
+                padding: 0.4rem 0;
+                font-size: 0.9rem;
+            }
+        }
     }
 </style>
 
@@ -146,25 +227,48 @@
         const menuButton = document.querySelector('.mobile-menu-button');
         const navList = document.querySelector('.nav-list');
         const menuOverlay = document.querySelector('.menu-overlay');
+        const navBrand = document.querySelector('.nav-brand');
+        
+        // Touch/swipe variables
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const swipeThreshold = 50;
         
         // Toggle mobile menu
         function toggleMenu() {
-            const isOpen = navList.classList.toggle('active');
-            menuOverlay.classList.toggle('active', isOpen);
-            menuButton.setAttribute('aria-expanded', isOpen);
-            menuButton.innerHTML = isOpen ? '<i class="fas fa-arrow-left"></i>' : '<i class="fas fa-bars"></i>';
+            const isOpen = !navList.classList.contains('active');
             
-            // Toggle body scroll
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            if (isOpen) {
+                navList.classList.add('active');
+                menuOverlay.classList.add('active');
+                navBrand.classList.add('menu-open');
+                menuButton.setAttribute('aria-expanded', 'true');
+                menuButton.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.style.overflow = 'hidden';
+                
+                // Set index for staggered animation
+                document.querySelectorAll('.nav-list li').forEach((item, index) => {
+                    item.style.setProperty('--i', index);
+                });
+            } else {
+                closeMenu();
+            }
         }
         
-        // Close menu function
+        // Close menu function with animation
         function closeMenu() {
+            navList.classList.add('closing');
             navList.classList.remove('active');
+            navBrand.classList.remove('menu-open');
             menuOverlay.classList.remove('active');
             menuButton.setAttribute('aria-expanded', 'false');
             menuButton.innerHTML = '<i class="fas fa-bars"></i>';
-            document.body.style.overflow = '';
+            
+            // Reset animations
+            setTimeout(() => {
+                navList.classList.remove('closing');
+                document.body.style.overflow = '';
+            }, 300);
         }
         
         // Event listeners
@@ -180,12 +284,29 @@
                 link.addEventListener('click', closeMenu);
             });
             
+            // Touch events for swipe to close
+            navList.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+            
+            navList.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+            
             // Close menu when scrolling
             window.addEventListener('scroll', function() {
                 if (navList.classList.contains('active')) {
                     closeMenu();
                 }
             });
+        }
+        
+        // Handle swipe gesture
+        function handleSwipe() {
+            if (touchStartX - touchEndX > swipeThreshold) {
+                closeMenu();
+            }
         }
         
         // Highlight current page
