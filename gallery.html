@@ -12,217 +12,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="css/gallery.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <style>
-      /* Gallery layout styles */
-      .gallery-container {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        padding: 2rem 0; /* Reduced padding */
-      }
-
-      .gallery-header {
-        text-align: center;
-        margin-bottom: 3rem; /* Adjusted margin */
-        width: 100%;
-        padding: 0 1rem;
-      }
-
-      .gallery-title {
-        font-size: clamp(2.5rem, 5vw, 3.5rem);
-        font-weight: 700;
-        margin-bottom: 1rem;
-        background: linear-gradient(to right, #f59795, #f8c8c7);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 2px;
-      }
-
-      .gallery-subtitle {
-        font-size: clamp(1rem, 2vw, 1.3rem);
-        color: #ccc;
-        font-weight: 300;
-        letter-spacing: 1px;
-      }
-
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Default to 2 columns */
-        gap: 1.5rem;
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 1rem;
-      }
-
-      .album-card {
-        position: relative;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        aspect-ratio: 3/4;
-        background: rgba(20, 20, 20, 0.7);
-        border: 1px solid rgba(245, 151, 149, 0.1);
-      }
-
-      .album-cover {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-      }
-
-      .album-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 1.2rem;
-        background: linear-gradient(
-          to top,
-          rgba(10, 10, 10, 0.95),
-          transparent
-        );
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .album-title {
-        font-size: clamp(1rem, 3vw, 1.3rem);
-        font-weight: 600;
-        color: white;
-        margin: 0 0 0.5rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      }
-
-      .album-date {
-        font-size: 0.8rem;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(245, 151, 149, 0.2);
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        margin-top: 0.5rem;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(245, 151, 149, 0.3);
-      }
-
-      /* Hover effects */
-      .album-card:hover {
-        transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 15px 40px rgba(245, 151, 149, 0.3);
-      }
-
-      .album-card:hover .album-cover {
-        transform: scale(1.1);
-      }
-
-      .album-card:hover .album-date {
-        background: rgba(245, 151, 149, 0.3);
-        color: white;
-      }
-
-      /* Date reveal animation */
-      .album-date {
-        opacity: 0;
-        transform: translateY(10px);
-        transition: all 0.4s ease;
-      }
-
-      .album-card:hover .album-date {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Responsive columns */
-      @media (min-width: 768px) {
-        .gallery-grid {
-          grid-template-columns: repeat(3, 1fr); /* 3 columns on tablets */
-          gap: 2rem;
-          padding: 0 2rem;
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .gallery-grid {
-          grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
-          gap: 2.5rem;
-          padding: 0 2.5rem;
-        }
-
-        .album-overlay {
-          padding: 1.5rem;
-        }
-
-        .album-title {
-          font-size: 1.5rem;
-        }
-      }
-
-      /* Mobile adjustments */
-      @media (max-width: 480px) {
-        .gallery-container {
-          padding: 1.5rem 0; /* Reduced padding */
-        }
-
-        .gallery-header {
-          margin-bottom: 2rem;
-        }
-
-        .gallery-grid {
-          gap: 1rem;
-          padding: 0 1rem;
-        }
-
-        .album-overlay {
-          padding: 1rem;
-        }
-
-        .album-title {
-          font-size: 1rem;
-        }
-      }
-
-      /* Footer styles */
-      .social-container {
-        padding: 2rem 1rem;
-        text-align: center;
-      }
-
-      .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .social-links a {
-        color: #f59795;
-        font-size: 1.2rem;
-        transition: color 0.3s ease;
-      }
-
-      .social-links a:hover {
-        color: white;
-      }
-
-      .footer-bottom {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .copyright,
-      .rights {
-        font-size: 0.8rem;
-        color: #aaa;
-      }
-    </style>
   </head>
   <body>
     <div class="page-transition-overlay"></div>
@@ -304,6 +95,166 @@
             <div class="album-overlay">
               <h3 class="album-title">Pantalone</h3>
               <div class="album-date">19.07.2023</div>
+            </div>
+          </a>
+
+          <!-- PLAVE (Do Eunho) -->
+          <a
+            href="https://www.doeunho.andreknite.com/"
+            class="album-card"
+            target="_blank"
+          >
+            <img
+              src="https://static.wixstatic.com/media/dc102d_80234fcee7f840348de01852faf81854~mv2.jpg/v1/fill/w_293,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_80234fcee7f840348de01852faf81854~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfODAyMzRmY2VlN2Y4NDAzNDhkZTAxODUyZmFmODE4NTR-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.g1I33OPErHKRNtzaSxYyXgL3uQ5yW5Xh35ydJgSA4wM"
+              alt="PLAVE (Do Eunho)"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">PLAVE (Do Eunho)</h3>
+              <div class="album-date">24.05.2023</div>
+            </div>
+          </a>
+
+          <!-- Saxon Lewis -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_saxon_lewis_image.jpg"
+              alt="Saxon Lewis"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Saxon Lewis</h3>
+              <div class="album-date">24.04.2023</div>
+            </div>
+          </a>
+
+          <!-- 桐時の -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_tokino_image.jpg"
+              alt="桐時の"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">桐時の</h3>
+              <div class="album-date">17.04.2023</div>
+            </div>
+          </a>
+
+          <!-- Elf Archer -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_elf_archer_image.jpg"
+              alt="Elf Archer"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Elf Archer</h3>
+              <div class="album-date">10.03.2023</div>
+            </div>
+          </a>
+
+          <!-- Fuyu Matsuri Event -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_fuyu_matsuri_image.jpg"
+              alt="Fuyu Matsuri Event"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Fuyu Matsuri Event</h3>
+              <div class="album-date">28.01.2023</div>
+            </div>
+          </a>
+
+          <!-- Chainsaw Man -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_chainsaw_man_image.jpg"
+              alt="Chainsaw Man"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Chainsaw Man</h3>
+              <div class="album-date">11.11.2022</div>
+            </div>
+          </a>
+
+          <!-- Oh Chanwoo Café ver. -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_chanwoo_cafe_image.jpg"
+              alt="Oh Chanwoo Café ver."
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Oh Chanwoo Café ver.</h3>
+              <div class="album-date">10.09.2022</div>
+            </div>
+          </a>
+
+          <!-- Dislyte (Drew Anubis) -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_dislyte_image.jpg"
+              alt="Dislyte (Drew Anubis)"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Dislyte (Drew Anubis)</h3>
+              <div class="album-date">24.08.2022</div>
+            </div>
+          </a>
+
+          <!-- Rohan au Louvre -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_rohan_louvre_image.jpg"
+              alt="Rohan au Louvre"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Rohan au Louvre</h3>
+              <div class="album-date">27.05.2022</div>
+            </div>
+          </a>
+
+          <!-- Howl’s Moving Castle (France) -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_howl_france_image.jpg"
+              alt="Howl’s Moving Castle (France)"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Howl’s Moving Castle (France)</h3>
+              <div class="album-date">24.05.2022</div>
+            </div>
+          </a>
+
+          <!-- Howl’s Moving Castle (Switzerland) -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_howl_switzerland_image.jpg"
+              alt="Howl’s Moving Castle (Switzerland)"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Howl’s Moving Castle (Switzerland)</h3>
+              <div class="album-date">09.05.2022</div>
+            </div>
+          </a>
+
+          <!-- Slow Damage -->
+          <a href="#" class="album-card" target="_blank">
+            <img
+              src="path_to_slow_damage_image.jpg"
+              alt="Slow Damage"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Slow Damage</h3>
+              <div class="album-date">19.02.2022</div>
             </div>
           </a>
         </div>
