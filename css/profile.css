@@ -172,21 +172,25 @@ nav {
   flex: 1;
 }
 
+/* Updated Profile Container */
 .profile-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: flex-start;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  justify-items: center;
 }
 
+/* Updated Image Box */
 .image-box {
-  position: sticky;
-  top: 120px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 15px 50px 10px rgba(245, 151, 149, 0.3);
-  transform: translateY(0);
-  transition: var(--transition), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0 auto;
+  order: -1;
 }
 
 .profile-image {
@@ -210,8 +214,12 @@ nav {
   transition: var(--transition);
 }
 
+/* Updated Info Column */
 .info-column {
   padding: 1rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .greeting {
@@ -245,7 +253,7 @@ nav {
 .divider {
   height: 2px;
   background: linear-gradient(90deg, var(--primary), transparent);
-  margin: 2rem 0;
+  margin: 2rem auto;
   width: 80px;
   transition: var(--transition);
 }
@@ -277,7 +285,7 @@ nav {
   width: 50%;
   height: 3px;
   bottom: -5px;
-  left: 0;
+  left: 25%;
   background-color: var(--primary);
 }
 
@@ -288,7 +296,7 @@ nav {
 
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -471,20 +479,37 @@ footer {
   transition: var(--transition);
 }
 
-/* Existing styles remain the same until the media queries section */
+/* Responsive Design */
+@media (min-width: 768px) {
+  .profile-container {
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+  }
+  
+  .image-box {
+    position: sticky;
+    top: 120px;
+    margin: 0;
+  }
+  
+  .info-column {
+    text-align: left;
+    padding: 1rem 2rem;
+  }
+  
+  .info-title::after {
+    left: 0;
+    width: 50%;
+  }
+  
+  .divider {
+    margin: 2rem 0;
+  }
+}
 
-/* Enhanced Responsive Design */
 @media (max-width: 1024px) {
   .container {
     padding: 0 3rem;
-  }
-  
-  .content-box {
-    gap: 3rem;
-  }
-
-  .intro-box h1 {
-    font-size: 2.4rem;
   }
 }
 
@@ -505,37 +530,12 @@ footer {
     justify-content: center;
     gap: 1rem 1.5rem;
   }
-
-  .content-box {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding-top: 1.5rem;
-  }
-
-  .image-box {
-    max-width: 400px;
-    margin: 0 auto;
-    order: -1; /* Move image to top on mobile */
-  }
-
-  .intro-box {
-    text-align: center;
-    padding: 0 0.5rem;
-  }
-
-  .divider {
-    margin: 1.5rem auto;
-  }
-
-  .cta-button {
-    margin: 0 auto;
-  }
 }
 
 /* Phone-specific optimizations */
 @media (max-width: 480px) {
   :root {
-    font-size: 14px; /* Base font size adjustment for small screens */
+    font-size: 14px;
   }
 
   .container {
@@ -559,7 +559,7 @@ footer {
     letter-spacing: 1px;
   }
 
-  .intro-box h1 {
+  .info-column h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
   }
@@ -569,14 +569,8 @@ footer {
     margin-bottom: 1.5rem;
   }
 
-  .bio {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-  }
-
   .image-box {
-    max-width: 320px;
-    transform: translateY(0) scale(0.95);
+    max-width: 350px;
   }
 
   footer {
@@ -592,17 +586,9 @@ footer {
     height: 42px;
     font-size: 1rem;
   }
-
-  .copyright {
-    font-size: 0.75rem;
-  }
-
-  .rights {
-    font-size: 0.65rem;
-  }
 }
 
-/* Extra small devices (phones under 360px) */
+/* Extra small devices */
 @media (max-width: 360px) {
   :root {
     font-size: 13px;
@@ -620,17 +606,12 @@ footer {
     gap: 0.6rem 1rem;
   }
 
-  .intro-box h1 {
+  .info-column h1 {
     font-size: 1.8rem;
   }
 
   .image-box {
     max-width: 280px;
-  }
-
-  .cta-button {
-    padding: 0.7rem 1.8rem;
-    font-size: 0.8rem;
   }
 
   .social-links a {
@@ -640,40 +621,19 @@ footer {
   }
 }
 
-/* Very small devices (phones under 320px) */
-@media (max-width: 320px) {
-  :root {
-    font-size: 12px;
-  }
-
-  .nav-list {
-    gap: 0.5rem 0.8rem;
-  }
-
-  .intro-box h1 {
-    font-size: 1.6rem;
-  }
-
-  .image-box {
-    max-width: 260px;
-  }
-}
-
 /* Orientation-specific adjustments */
 @media (max-height: 500px) and (orientation: landscape) {
-  .content-box {
+  .profile-container {
     grid-template-columns: 1fr 1fr;
     align-items: center;
   }
   
   .image-box {
     max-width: 300px;
-    transform: translateY(0) scale(0.85);
   }
   
-  .intro-box {
+  .info-column {
     text-align: left;
-    padding: 0;
   }
   
   .divider {
@@ -683,8 +643,7 @@ footer {
 
 /* High-density displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* Enhancements for retina displays */
-  .logo, .nav-list a, .cta-button, .social-links a {
+  .logo, .nav-list a, .social-links a {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -692,7 +651,6 @@ footer {
 
 /* Dark mode preference */
 @media (prefers-color-scheme: dark) {
-  /* Ensures compatibility with system dark mode */
   body {
     background-color: var(--dark);
     color: var(--light);
@@ -708,5 +666,3 @@ footer {
     scroll-behavior: auto !important;
   }
 }
-
-
