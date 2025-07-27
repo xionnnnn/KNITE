@@ -2359,6 +2359,10 @@
           No albums found matching your search.
         </div>
       </div>
+       <!-- Back to top button -->
+    <button id="back-to-top" aria-label="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
     </main>
 
     <footer>
@@ -2396,7 +2400,9 @@
         const searchInput = document.getElementById('search-input');
         const albumCards = document.querySelectorAll('.album-card');
         const noResultsMessage = document.getElementById('no-results');
+        const backToTopButton = document.getElementById('back-to-top');
         
+        // Search functionality
         searchInput.addEventListener('input', function() {
           const searchTerm = this.value.toLowerCase();
           let hasResults = false;
@@ -2417,6 +2423,22 @@
           } else {
             noResultsMessage.style.display = 'block';
           }
+        });
+
+        // Back to top button functionality
+        window.addEventListener('scroll', function() {
+          if (window.pageYOffset > 300) {
+            backToTopButton.style.display = 'block';
+          } else {
+            backToTopButton.style.display = 'none';
+          }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
         });
       });
     </script>

@@ -3,12 +3,12 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 2rem 0; 
+  padding: 2rem 0;
 }
 
 .gallery-header {
   text-align: center;
-  margin-bottom: 1.5rem; 
+  margin-bottom: 1.5rem;
   width: 100%;
   padding: 0 1rem;
 }
@@ -34,7 +34,7 @@
 /* Updated Search bar styles */
 .search-container {
   max-width: 800px;
-  margin: 0 auto 2rem auto; 
+  margin: 0 auto 2rem auto;
   padding: 0 20px;
 }
 
@@ -249,4 +249,34 @@
 .rights {
   font-size: 0.8rem;
   color: #aaa;
+}
+
+/* Back to top button styles */
+#back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.318);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  z-index: 99;
+  transition: all 0.3s ease;
+  font-size: 20px;
+}
+
+#back-to-top:hover {
+  background-color: rgba(255, 255, 255, 0.318);
+  transform: translateY(-3px);
+}
+
+#back-to-top i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
