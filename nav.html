@@ -116,10 +116,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 70%;
-            height: 100dvh;
-            min-height: -webkit-fill-available;
-            background-color: rgba(10, 10, 10, 0.95);
+            width: 70%; /* 20% less than full width */
+            height: 100vh;
+            background-color: rgba(10, 10, 10, 0.90); /* 50% transparency */
             backdrop-filter: blur(5px);
             flex-direction: column;
             align-items: flex-start;
@@ -131,7 +130,6 @@
             box-shadow: 2px 0 15px rgba(0,0,0,0.2);
             transform: translateX(-100%);
             transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            overflow-y: auto;
         }
         
         .nav-list.active {
@@ -176,47 +174,6 @@
         
         .tagline {
             font-size: 0.6rem;
-        }
-
-        /* Height-responsive adjustments */
-        @media (max-height: 700px) {
-            .nav-list {
-                padding-top: 4rem;
-                gap: 1.2rem;
-            }
-        }
-
-        @media (max-height: 600px) {
-            .nav-list {
-                padding-top: 3rem;
-                padding-bottom: 2rem;
-                gap: 1rem;
-            }
-        }
-
-        @media (max-height: 500px) {
-            .nav-list {
-                padding-top: 2.5rem;
-                gap: 0.8rem;
-            }
-            
-            .nav-list a {
-                padding: 0.6rem 0;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-height: 400px) {
-            .nav-list {
-                padding-top: 2rem;
-                padding-bottom: 1rem;
-                gap: 0.5rem;
-            }
-            
-            .nav-list a {
-                padding: 0.4rem 0;
-                font-size: 0.9rem;
-            }
         }
     }
 </style>
@@ -304,10 +261,10 @@
         
         // Handle swipe gesture
         function handleSwipe() {
-            if (touchStartX - touchEndX > swipeThreshold) {
-                closeMenu();
+                if (touchStartX - touchEndX > swipeThreshold) {
+                    closeMenu();
+                }
             }
-        }
         
         // Highlight current page
         function setActivePage() {
