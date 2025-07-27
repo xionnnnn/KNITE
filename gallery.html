@@ -1,241 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GALLERY | KNITE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
     <style>
-        /* Gallery layout styles */
-        .gallery-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 4rem 2rem;
-        }
+      /* Gallery layout styles */
+      .gallery-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 4rem 2rem;
+      }
 
-        .gallery-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            width: 100%;
-        }
+      .gallery-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        width: 100%;
+      }
 
-        .gallery-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #f59795, #f8c8c7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-        }
+      .gallery-title {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, #f59795, #f8c8c7);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 2px;
+      }
 
-        .gallery-subtitle {
-            font-size: 1.3rem;
-            color: #ccc;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
+      .gallery-subtitle {
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        color: #ccc;
+        font-weight: 300;
+        letter-spacing: 1px;
+      }
 
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Default to 2 columns */
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1400px;
+        margin: auto;
+        padding: 0 1rem;
+      }
+
+      .album-card {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        aspect-ratio: 3/4;
+        background: rgba(20, 20, 20, 0.7);
+        border: 1px solid rgba(245, 151, 149, 0.1);
+      }
+
+      .album-cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      .album-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.2rem;
+        background: linear-gradient(
+          to top,
+          rgba(10, 10, 10, 0.95),
+          transparent
+        );
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .album-title {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        font-weight: 600;
+        color: white;
+        margin: 0 0 0.5rem 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .album-date {
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(245, 151, 149, 0.2);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        margin-top: 0.5rem;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(245, 151, 149, 0.3);
+      }
+
+      /* Hover effects */
+      .album-card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 15px 40px rgba(245, 151, 149, 0.3);
+      }
+
+      .album-card:hover .album-cover {
+        transform: scale(1.1);
+      }
+
+      .album-card:hover .album-date {
+        background: rgba(245, 151, 149, 0.3);
+        color: white;
+      }
+
+      /* Date reveal animation */
+      .album-date {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.4s ease;
+      }
+
+      .album-card:hover .album-date {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Responsive adjustments */
+      @media (min-width: 768px) {
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
-            width: 100%;
-            max-width: 1400px;
-            margin: auto;
+          grid-template-columns: repeat(3, 1fr); /* 3 columns on tablets */
+          gap: 2rem;
         }
+      }
 
-        .album-card {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            aspect-ratio: 3/4;
-            background: rgba(20, 20, 20, 0.7);
-            border: 1px solid rgba(245, 151, 149, 0.1);
+      @media (min-width: 1024px) {
+        .gallery-grid {
+          grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+          gap: 2.5rem;
         }
-
-        .album-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
+        
         .album-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2rem;
-            background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+          padding: 1.5rem;
         }
-
+        
         .album-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-            margin: 0 0 0.5rem 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+          font-size: 1.5rem;
         }
+      }
 
-        .album-date {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: rgba(255,255,255,0.8);
-            background: rgba(245, 151, 149, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            margin-top: 0.5rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(245, 151, 149, 0.3);
+      @media (max-width: 480px) {
+        .gallery-container {
+          padding: 3rem 1rem;
         }
-
-        /* Hover effects */
-        .album-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(245, 151, 149, 0.3);
+        
+        .gallery-grid {
+          gap: 1rem;
+          padding: 0 0.5rem;
         }
-
-        .album-card:hover .album-cover {
-            transform: scale(1.1);
+        
+        .album-overlay {
+          padding: 1rem;
         }
-
-        .album-card:hover .album-date {
-            background: rgba(245, 151, 149, 0.3);
-            color: white;
+        
+        .album-title {
+          font-size: 1rem;
         }
-
-        /* Date reveal animation */
-        .album-date {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.4s ease;
-        }
-
-        .album-card:hover .album-date {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 800px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-            }
-            
-            .gallery-title {
-                font-size: 2.8rem;
-            }
-            
-            .album-title {
-                font-size: 1.3rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="page-transition-overlay"></div>
-    
-    <header>
-        <nav>
-            <div class="nav-brand">
-                <div class="logo">KNITE</div>
-                <span class="tagline">Cosplay · Model · Stream</span>
-            </div>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="profile.html">PROFILE</a></li>
-                <li><a href="gallery.html" class="active">GALLERY</a></li>
-                <li><a href="appearances.html">APPEARANCES</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
-            </ul>
-        </nav>
-    </header>
+
+    <div id="nav-placeholder"></div>
 
     <main>
-        <div class="gallery-container">
-            <div class="gallery-header">
-                <h1 class="gallery-title">PHOTO ALBUMS</h1>
-                <p class="gallery-subtitle">Explore KNITE's creative cosplay portfolio</p>
-            </div>
-            
-            <div class="gallery-grid">
-                <!-- Elf Sorcerer -->
-                <a href="https://elf-sorcerer.andreknite.com/" class="album-card" target="_blank">
-                    <img src="https://static.wixstatic.com/media/dc102d_02457f55c28e4349a5247b7af20b851c~mv2.jpg/v1/fill/w_293,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_02457f55c28e4349a5247b7af20b851c~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfMDI0NTdmNTVjMjhlNDM0OWE1MjQ3YjdhZjIwYjg1MWN-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.N7b9RIcY8Ig4FTUoNZaudv2fJtxVbaQZP2852cXJ7Q0" alt="Elf Sorcerer" class="album-cover">
-                    <div class="album-overlay">
-                        <h3 class="album-title">Elf Sorcerer</h3>
-                        <div class="album-date">22.11.2023</div>
-                    </div>
-                </a>
-                
-                <!-- PLAVE (Bamby) -->
-                <a href="https://plave-bamby.andreknite.com/" class="album-card" target="_blank">
-                    <img src="https://static.wixstatic.com/media/dc102d_ea498dea91dc4d17b095dac67ec79f79~mv2.jpg/v1/fill/w_293,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_ea498dea91dc4d17b095dac67ec79f79~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfZWE0OThkZWE5MWRjNGQxN2IwOTVkYWM2N2VjNzlmNzl-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.rBmYfU4mOH24ut3RV2HvRgiVF0LmYdCDSJTZakolydQ" alt="PLAVE (Bamby)" class="album-cover">
-                    <div class="album-overlay">
-                        <h3 class="album-title">PLAVE (Bamby)</h3>
-                        <div class="album-date">10.09.2023</div>
-                    </div>
-                </a>
-                
-                <!-- ORV Kim Dokja -->
-                <a href="https://orv-kim-dokja.andreknite.com/" class="album-card" target="_blank">
-                    <img src="https://static.wixstatic.com/media/dc102d_fcd51ee3acc345e5be9251f845d5d9fd~mv2.jpg/v1/fill/w_293,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_fcd51ee3acc345e5be9251f845d5d9fd~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfZmNkNTFlZTNhY2MzNDVlNWJlOTI1MWY4NDVkNWQ5ZmR-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.33iHa9byqzYFvHSFDVnSRpNpmLwiyxtCDumx7RsyNE0" alt="ORV Kim Dokja" class="album-cover">
-                    <div class="album-overlay">
-                        <h3 class="album-title">ORV Kim Dokja</h3>
-                        <div class="album-date">06.09.2023</div>
-                    </div>
-                </a>
-                
-                <!-- Pantalone -->
-                <a href="https://pantalone.andreknite.com/" class="album-card" target="_blank">
-                    <img src="https://static.wixstatic.com/media/dc102d_ce412e01c43a49adbb32ff6862755e25~mv2.jpg/v1/fill/w_291,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_ce412e01c43a49adbb32ff6862755e25~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfY2U0MTJlMDFjNDNhNDlhZGJiMzJmZjY4NjI3NTVlMjV-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.0nFfKiLoOSvQDg7yQv2PkoGSv47uoXCSUO6yCKaOjfc" alt="Pantalone" class="album-cover">
-                    <div class="album-overlay">
-                        <h3 class="album-title">Pantalone</h3>
-                        <div class="album-date">19.07.2023</div>
-                    </div>
-                </a>
-                
-            </div>
+      <div class="gallery-container">
+        <div class="gallery-header">
+          <h1 class="gallery-title">PHOTO ALBUMS</h1>
+          <p class="gallery-subtitle">
+            Explore KNITE's creative cosplay portfolio
+          </p>
         </div>
+
+        <div class="gallery-grid">
+          <!-- Elf Sorcerer -->
+          <a
+            href="https://elf-sorcerer.andreknite.com/"
+            class="album-card"
+            target="_blank"
+          >
+            <img
+              src="https://static.wixstatic.com/media/dc102d_02457f55c28e4349a5247b7af20b851c~mv2.jpg/v1/fill/w_293,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_02457f55c28e4349a5247b7af20b851c~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfMDI0NTdmNTVjMjhlNDM0OWE1MjQ3YjdhZjIwYjg1MWN-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.N7b9RIcY8Ig4FTUoNZaudv2fJtxVbaQZP2852cXJ7Q0"
+              alt="Elf Sorcerer"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Elf Sorcerer</h3>
+              <div class="album-date">22.11.2023</div>
+            </div>
+          </a>
+
+          <!-- PLAVE (Bamby) -->
+          <a
+            href="https://plave-bamby.andreknite.com/"
+            class="album-card"
+            target="_blank"
+          >
+            <img
+              src="https://static.wixstatic.com/media/dc102d_ea498dea91dc4d17b095dac67ec79f79~mv2.jpg/v1/fill/w_293,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_ea498dea91dc4d17b095dac67ec79f79~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfZWE0OThkZWE5MWRjNGQxN2IwOTVkYWM2N2VjNzlmNzl-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.rBmYfU4mOH24ut3RV2HvRgiVF0LmYdCDSJTZakolydQ"
+              alt="PLAVE (Bamby)"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">PLAVE (Bamby)</h3>
+              <div class="album-date">10.09.2023</div>
+            </div>
+          </a>
+
+          <!-- ORV Kim Dokja -->
+          <a
+            href="https://orv-kim-dokja.andreknite.com/"
+            class="album-card"
+            target="_blank"
+          >
+            <img
+              src="https://static.wixstatic.com/media/dc102d_fcd51ee3acc345e5be9251f845d5d9fd~mv2.jpg/v1/fill/w_293,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_fcd51ee3acc345e5be9251f845d5d9fd~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfZmNkNTFlZTNhY2MzNDVlNWJlOTI1MWY4NDVkNWQ5ZmR-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.33iHa9byqzYFvHSFDVnSRpNpmLwiyxtCDumx7RsyNE0"
+              alt="ORV Kim Dokja"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">ORV Kim Dokja</h3>
+              <div class="album-date">06.09.2023</div>
+            </div>
+          </a>
+
+          <!-- Pantalone -->
+          <a
+            href="https://pantalone.andreknite.com/"
+            class="album-card"
+            target="_blank"
+          >
+            <img
+              src="https://static.wixstatic.com/media/dc102d_ce412e01c43a49adbb32ff6862755e25~mv2.jpg/v1/fill/w_291,h_291,fp_0.50_0.50,q_90,usm_1.00_0.66_0.01/dc102d_ce412e01c43a49adbb32ff6862755e25~mv2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1cm46YXBwOjZiZTRmNGFmMjAzOTQwOTVhZDY5Y2NjMzk4ODkyYzhkIiwib2JqIjpbW3sicGF0aCI6Ii9tZWRpYS9kYzEwMmRfY2U0MTJlMDFjNDNhNDlhZGJiMzJmZjY4NjI3NTVlMjV-bXYyLmpwZyJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sImlzcyI6InVybjphcHA6NmJlNGY0YWYyMDM5NDA5NWFkNjljY2MzOTg4OTJjOGQiLCJpYXQiOjEwMDAsImp0aSI6IjE3NjcyMjU2MDAiLCJleHAiOjE3NjcyMjU2MDAsIndtayI6eyJwYXRoIjoiL21lZGlhLzhiYjQzOF8zOWE3OGI0NmQ0ZmU0NzA2OWRhNjNkYTkzNDhiNGVlNX5tdjIucG5nIiwib3BhY2l0eSI6MSwicHJvcG9ydGlvbnMiOjAuMSwiZ3Jhdml0eSI6Im5vcnRoLXdlc3QifX0.0nFfKiLoOSvQDg7yQv2PkoGSv47uoXCSUO6yCKaOjfc"
+              alt="Pantalone"
+              class="album-cover"
+            />
+            <div class="album-overlay">
+              <h3 class="album-title">Pantalone</h3>
+              <div class="album-date">19.07.2023</div>
+            </div>
+          </a>
+        </div>
+      </div>
     </main>
 
     <footer>
-        <div class="social-container">
-            <div class="social-links">
-                <a href="https://www.instagram.com/knitecoser" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/knitemaya" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.twitch.tv/knitecoser" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-                <a href="https://www.tiktok.com/@knitecoser" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                <a href="https://x.com/knitecoser" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.youtube.com/knitecoser" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            </div>
-            <div class="footer-bottom">
-                <div class="copyright">&copy; 2025 KNITE</div>
-                <div class="rights">All rights reserved</div>
-            </div>
+      <div class="social-container">
+        <div class="social-links">
+          <a href="https://www.instagram.com/knitecoser" aria-label="Instagram"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="https://www.facebook.com/knitemaya" aria-label="Facebook"
+            ><i class="fab fa-facebook"></i
+          ></a>
+          <a href="https://www.twitch.tv/knitecoser" aria-label="Twitch"
+            ><i class="fab fa-twitch"></i
+          ></a>
+          <a href="https://www.tiktok.com/@knitecoser" aria-label="TikTok"
+            ><i class="fab fa-tiktok"></i
+          ></a>
+          <a href="https://x.com/knitecoser" aria-label="Twitter"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a href="https://www.youtube.com/knitecoser" aria-label="YouTube"
+            ><i class="fab fa-youtube"></i
+          ></a>
         </div>
+        <div class="footer-bottom">
+          <div class="copyright">&copy; 2025 KNITE</div>
+          <div class="rights">All rights reserved</div>
+        </div>
+      </div>
     </footer>
 
     <script src="js/script.js"></script>
-</body>
+  </body>
 </html>
