@@ -1,0 +1,157 @@
+<!-- nav.html -->
+<header>
+    <nav>
+        <div class="nav-brand">
+            <span class="logo">KNITE</span>
+            <span class="tagline">Cosplay · Model · Stream</span>
+        </div>
+        
+        <!-- Mobile menu button (hidden by default) -->
+        <button class="mobile-menu-button" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <ul class="nav-list">
+            <li><a href="index.html" data-page="index">HOME</a></li>
+            <li><a href="profile.html" data-page="profile">PROFILE</a></li>
+            <li><a href="gallery.html" data-page="gallery">GALLERY</a></li>
+            <li><a href="appearances.html" data-page="appearances">APPEARANCES</a></li>
+            <li><a href="contact.html" data-page="contact">CONTACT</a></li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+    /* Mobile menu button - hidden by default */
+    .mobile-menu-button {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--light);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    
+    .mobile-menu-button:hover {
+        color: var(--primary);
+    }
+    
+    /* Active page style (already in your CSS) */
+    .nav-list a.active {
+        color: var(--primary);
+        font-weight: 700;
+    }
+    
+    .nav-list a.active::after {
+        width: 100%;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .mobile-menu-button {
+            display: block;
+        }
+        
+        .nav-list {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.98);
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 0;
+            gap: 1.5rem;
+            clip-path: circle(0px at 90% -10%);
+            -webkit-clip-path: circle(0px at 90% -10%);
+            transition: all 0.8s ease-out;
+            pointer-events: none;
+            border-bottom: 1px solid rgba(245, 151, 149, 0.1);
+        }
+        
+        .nav-list.active {
+            clip-path: circle(1000px at 90% -10%);
+            -webkit-clip-path: circle(1000px at 90% -10%);
+            pointer-events: all;
+        }
+        
+        nav {
+            flex-wrap: wrap;
+            padding: 1rem 2rem;
+        }
+        
+        .nav-brand {
+            flex: 1;
+        }
+        
+        /* Mobile active state */
+        .nav-list a.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const navList = document.querySelector('.nav-list');
+        
+        if (menuButton && navList) {
+            menuButton.addEventListener('click', function() {
+                navList.classList.toggle('active');
+                menuButton.innerHTML = navList.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // Highlight current page
+        function setActivePage() {
+            // Get current page filename without extension
+            const path = window.location.pathname;
+            let currentPage = path.split("/").pop();
+            currentPage = currentPage.replace('.html', '');
+            
+            // If index page (empty or just '/')
+            if (currentPage === '' || currentPage === '/') {
+                currentPage = 'index';
+            }
+            
+            // Remove active class from all links
+            document.querySelectorAll('.nav-list a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to current page link
+            const activeLink = document.querySelector(`.nav-list a[data-page="${currentPage}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+        
+        // Set active page on load
+        setActivePage();
+        
+        // Update active state when navigating (for SPA-like behavior)
+        document.querySelectorAll('.nav-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove active class from all links
+                document.querySelectorAll('.nav-list a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Close mobile menu if open
+                if (navList && navList.classList.contains('active')) {
+                    navList.classList.remove('active');
+                    menuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+    });
+</script>

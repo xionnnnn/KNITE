@@ -71,3 +71,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+fetch("nav.html")
+  .then((response) => response.text())
+  .then((data) => {
+    document.getElementById("nav-placeholder").innerHTML = data;
+
+    // Mobile menu functionality
+    const menuButton = document.querySelector(".mobile-menu-button");
+    const navList = document.querySelector(".nav-list");
+
+    if (menuButton && navList) {
+      menuButton.addEventListener("click", function () {
+        navList.classList.toggle("active");
+        menuButton.innerHTML = navList.classList.contains("active")
+          ? '<i class="fas fa-times"></i>'
+          : '<i class="fas fa-bars"></i>';
+      });
+    }
+
+    // Active page highlighting
+    function setActivePage() {
+      const path = window.location.pathname;
+      let currentPage = path.split("/").pop();
+      currentPage = currentPage.replace(".html", "");
+
+      if (currentPage === "" || currentPage === "/") {
+        currentPage = "index";
+      }
+
+      document.querySelectorAll(".nav-list a").forEach((link) => {
+        link.classList.remove("active");
+      });
+
+      const activeLink = document.querySelector(
+        `.nav-list a[data-page="${currentPage}"]`
+      );
+      if (activeLink) {
+        activeLink.classList.add("active");
+      }
+    }
+
+    setActivePage();
+
+    // Click handler for navigation links
+    document.querySelectorAll(".nav-list a").forEach((link) => {
+      link.addEventListener("click", function (e) {
+        document.querySelectorAll(".nav-list a").forEach((link) => {
+          link.classList.remove("active");
+        });
+        this.classList.add("active");
+
+        if (navList && navList.classList.contains("active")) {
+          navList.classList.remove("active");
+          menuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+    });
+  });
