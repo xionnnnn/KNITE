@@ -1,55 +1,526 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>APPEARANCES | KNITE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="page-transition-overlay"></div>
-    
-    <header>
-        <nav>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="profile.html">PROFILE</a></li>
-                <li><a href="gallery.html">GALLERY</a></li>
-                <li><a href="appearances.html">APPEARANCES</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
-            </ul>
-        </nav>
-    </header>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      /* Modern Minimalist Color Scheme */
+      :root {
+        --primary: #f59795;
+        --dark: #0a0a0a;
+        --light: #f8f8f8;
+        --gray: #2a2a2a;
+        --light-gray: #e0e0e0;
+        --transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+      }
+
+      /* Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--dark);
+        color: var(--light);
+        line-height: 1.7;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Navigation */
+      nav {
+        background-color: var(--dark);
+        padding: 1.5rem 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid rgba(245, 151, 149, 0.1);
+      }
+
+      .logo {
+        color: var(--primary);
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .nav-list {
+        list-style: none;
+        display: flex;
+        gap: 2.5rem;
+      }
+
+      .nav-list a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        padding: 0.5rem 0;
+        position: relative;
+        transition: var(--transition);
+      }
+
+      .nav-list a:hover {
+        color: var(--primary);
+      }
+
+      .nav-list a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--primary);
+        transition: var(--transition);
+      }
+
+      .nav-list a:hover::after {
+        width: 100%;
+      }
+
+      .nav-list a.active {
+        color: var(--primary);
+      }
+
+      .nav-list a.active::after {
+        width: 100%;
+      }
+
+      /* Main Content */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 3rem;
+        flex: 1;
+      }
+
+      .page-header {
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .page-header p {
+        font-size: 1.1rem;
+        color: var(--light-gray);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .appearances-list {
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        padding: 2.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .appearances-list h2 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        color: var(--primary);
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .appearances-list h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background-color: var(--primary);
+      }
+
+      .appearances-list ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .appearances-list li {
+        padding: 1.5rem;
+        background-color: rgba(255, 255, 255, 0.02);
+        border-left: 3px solid var(--primary);
+        transition: var(--transition);
+      }
+
+      .appearances-list li:hover {
+        background-color: rgba(245, 151, 149, 0.05);
+        transform: translateY(-3px);
+      }
+
+      .appearances-list strong {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--light);
+      }
+
+      .appearances-list em {
+        font-style: normal;
+        color: var(--light-gray);
+        font-size: 0.9rem;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        padding: 3rem 2rem;
+        text-align: center;
+        border-top: 1px solid rgba(245, 151, 149, 0.1);
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-links a {
+        color: var(--light);
+        font-size: 1.2rem;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        color: var(--primary);
+        transform: translateY(-3px);
+      }
+
+      .copyright {
+        font-size: 0.8rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .rights {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .container {
+          padding: 3rem 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          flex-direction: column;
+          padding: 1.5rem;
+          gap: 1.5rem;
+        }
+
+        .nav-list {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+        }
+
+        .appearances-list ul {
+          grid-template-columns: 1fr;
+        }
+
+        .appearances-list {
+          padding: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 2rem 1.5rem;
+        }
+
+        .page-header h1 {
+          font-size: 2rem;
+        }
+
+        .page-header p {
+          font-size: 1rem;
+        }
+
+        .appearances-list h2 {
+          font-size: 1.3rem;
+        }
+
+        .appearances-list li {
+          padding: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="nav-placeholder"></div>
 
     <main class="container">
-        <div class="content-box">
-            <h1>Guest Appearances</h1>
-            <p class="subtitle">See where KNITE has made special appearances.</p>
-            <div class="divider"></div>
-            <div class="appearances-list">
-                <!-- Appearances content will go here -->
-                <p>Appearances content coming soon...</p>
-            </div>
-        </div>
+      <div class="page-header">
+        <h1>Guest Appearances</h1>
+        <p>See where KNITE has made special appearances around the world</p>
+      </div>
+
+      <div class="appearances-list">
+        <h2>Past Events</h2>
+        <ul>
+          <li>
+            <strong>SILENT DRAMA COMIC CON</strong>
+            <em>Jinan, China (2016)</em>
+          </li>
+          <li>
+            <strong>TROPICON</strong>
+            <em>Wolfslake, Germany (2016)</em>
+          </li>
+          <li>
+            <strong>MADMAN ANIME FESTIVAL</strong>
+            <em>Perth, Australia (2017)</em>
+          </li>
+          <li>
+            <strong>HEROES MANGA MADRID</strong>
+            <em>Madrid, Spain (2017)</em>
+          </li>
+          <li>
+            <strong>MANGA FESTIVAL</strong>
+            <em>Ho Chi Minh City, Vietnam (2017)</em>
+          </li>
+          <li>
+            <strong>CHARA EXPO</strong>
+            <em>Suntec, Singapore (2017)</em>
+          </li>
+          <li>
+            <strong>COSPLAY MANIA</strong>
+            <em>Manila, Philippines (2017)</em>
+          </li>
+          <li>
+            <strong>JAPAN EXPO</strong>
+            <em>Ho Chi Minh City, Vietnam (2017)</em>
+          </li>
+          <li>
+            <strong>MADMAN ANIME FESTIVAL</strong>
+            <em>Melbourne, Australia (2017)</em>
+          </li>
+          <li>
+            <strong>BAKAPHIN (feat. Knite) Fan Meet</strong>
+            <em>Jakarta, Indonesia (2017)</em>
+          </li>
+          <li>
+            <strong>ASIAN FEST</strong>
+            <em>Morelos, Mexico (2018)</em>
+          </li>
+          <li>
+            <strong>EXPO FUSION</strong>
+            <em>Mexico City, Mexico (2018)</em>
+          </li>
+          <li>
+            <strong>YAOI EXPO</strong>
+            <em>Manila, Philippines (2018)</em>
+          </li>
+          <li>
+            <strong>DOKI DOKI LOVE CAFÉ</strong>
+            <em>Mexico City & Monterrey, Mexico (2018)</em>
+          </li>
+          <li>
+            <strong>AVCON</strong>
+            <em>Adelaide, Australia (2018)</em>
+          </li>
+          <li>
+            <strong>UNIVERSITY ESPORTS LEAGUE</strong>
+            <em>Sydney, Australia (2018)</em>
+          </li>
+          <li>
+            <strong>INFECT ONLY NO.4</strong>
+            <em>Taipei, Taiwan (2018)</em>
+          </li>
+          <li>
+            <strong>HOBBYCON</strong>
+            <em>Sabah, Malaysia (2018)</em>
+          </li>
+          <li>
+            <strong>YAOI EXPO OMEGAVERSE</strong>
+            <em>Manila, Philippines (2019)</em>
+          </li>
+          <li>
+            <strong>FUYU MATSURI</strong>
+            <em>Ho Chi Minh City, Vietnam (2019)</em>
+          </li>
+          <li>
+            <strong>MADRID OTAKU</strong>
+            <em>Madrid, Spain (2019)</em>
+          </li>
+          <li>
+            <strong>CXM MIRI</strong>
+            <em>Miri, Malaysia (2019)</em>
+          </li>
+          <li>
+            <strong>MOEMOE SEKAI FEST</strong>
+            <em>Bogotá, Colombia (2019)</em>
+          </li>
+          <li>
+            <strong>AKI MATSURI</strong>
+            <em>Ho Chi Minh City, Vietnam (2019)</em>
+          </li>
+          <li>
+            <strong>ARCHCON CEBU</strong>
+            <em>Cebu, Philippines (2019)</em>
+          </li>
+          <li>
+            <strong>KAMO CON</strong>
+            <em>Dijon, France (2022)</em>
+          </li>
+          <li>
+            <strong>CRUNCHYROLL EXPO</strong>
+            <em>Melbourne, Australia (2022)</em>
+          </li>
+          <li>
+            <strong>INDONESIA COMIC CON</strong>
+            <em>Jakarta, Indonesia (2022)</em>
+          </li>
+          <li>
+            <strong>KAWAII EXPO</strong>
+            <em>Cebu, Philippines (2022)</em>
+          </li>
+          <li>
+            <strong>AKI MATSURI</strong>
+            <em>Ho Chi Minh City, Vietnam (2022)</em>
+          </li>
+          <li>
+            <strong>ANIME FESTIVAL ASIA</strong>
+            <em>Suntec, Singapore (2022)</em>
+          </li>
+          <li>
+            <strong>MUKASHI SCHOOL FESTIVAL</strong>
+            <em>Jakarta, Indonesia (2022)</em>
+          </li>
+          <li>
+            <strong>AT UR SERVICE CAFÉ</strong>
+            <em>Jakarta, Indonesia (2022)</em>
+          </li>
+          <li>
+            <strong>HOBBYCON</strong>
+            <em>Sabah, Malaysia (2022)</em>
+          </li>
+          <li>
+            <strong>FUYU MATSURI</strong>
+            <em>Ho Chi Minh City, Vietnam (2023)</em>
+          </li>
+          <li>
+            <strong>ACOSTA!マルシェ Vol.4</strong>
+            <em>Tokyo, Japan (2023)</em>
+          </li>
+          <li>
+            <strong>HOSHICON</strong>
+            <em>Perth, Australia (2023)</em>
+          </li>
+          <li>
+            <strong>PYRKON</strong>
+            <em>Poznań, Poland (2023)</em>
+          </li>
+          <li>
+            <strong>ANIME FESTIVAL ASIA (Creators Super Fest)</strong>
+            <em>Suntec, Singapore (2023)</em>
+          </li>
+          <li>
+            <strong>ANIMANGAKI × Tokyo Street</strong>
+            <em>Kuala Lumpur, Malaysia (2023)</em>
+          </li>
+          <li>
+            <strong>COSPLAY MANIA</strong>
+            <em>Manila, Philippines (2023)</em>
+          </li>
+          <li>
+            <strong>HALUAPP HALUWEEN EVENT</strong>
+            <em>Jakarta, Indonesia (2023)</em>
+          </li>
+          <li>
+            <strong>THAILAND GAME SHOW</strong>
+            <em>Bangkok, Thailand (2023)</em>
+          </li>
+          <li>
+            <strong>HOBBY HORIZON</strong>
+            <em>Ho Chi Minh City, Vietnam (2023)</em>
+          </li>
+          <li>
+            <strong>AniManGaki 2025</strong>
+            <em
+              >Mines International Exhibition & Convention Centre, Malaysia
+              (August 22–24, 2025)</em
+            >
+          </li>
+          <li>
+            <strong>Maruya #43: Back to School</strong>
+            <em>Thailand (July 20, 2025)</em>
+          </li>
+        </ul>
+      </div>
     </main>
 
     <footer>
-        <div class="social-links">
-            <a href="https://www.instagram.com/knitecoser" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com/knitemaya" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.twitch.tv/knitecoser" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-            <a href="https://www.tiktok.com/@knitecoser" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://x.com/knitecoser" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/knitecoser" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        </div>
-        <div class="footer-right">
-            <div class="copyright">&copy; 2025 KNITE</div>
-            <div class="rights">All rights reserved</div>
-        </div>
+      <div class="social-links">
+        <a href="https://www.instagram.com/knitecoser" aria-label="Instagram"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="https://www.facebook.com/knitemaya" aria-label="Facebook"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a href="https://www.twitch.tv/knitecoser" aria-label="Twitch"
+          ><i class="fab fa-twitch"></i
+        ></a>
+        <a href="https://www.tiktok.com/@knitecoser" aria-label="TikTok"
+          ><i class="fab fa-tiktok"></i
+        ></a>
+        <a href="https://x.com/knitecoser" aria-label="Twitter"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="https://www.youtube.com/knitecoser" aria-label="YouTube"
+          ><i class="fab fa-youtube"></i
+        ></a>
+      </div>
+      <div class="copyright">&copy; 2025 KNITE</div>
+      <div class="rights">All rights reserved</div>
     </footer>
+  </body>
 
     <script src="js/script.js"></script>
-</body>
 </html>
