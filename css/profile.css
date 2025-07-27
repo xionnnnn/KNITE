@@ -513,226 +513,242 @@ footer {
   text-align: center;
 }
 
-/* Responsive Design - Tablet and Larger Phones */
-@media (min-width: 600px) {
+/* Existing styles remain the same until the media queries section */
+
+/* Enhanced Responsive Design */
+@media (max-width: 1024px) {
   .container {
-    padding: 2.5rem;
+    padding: 0 3rem;
   }
-
-  .info-column h1 {
-    font-size: 2.2rem;
-  }
-
-  .info-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-
-  .social-links a {
-    width: 45px;
-    height: 45px;
-    font-size: 1.1rem;
-  }
-}
-
-/* Responsive Design - Small Tablets and Landscape Phones */
-@media (min-width: 768px) {
-  nav {
-    padding: 1.2rem 2rem;
-  }
-
-  .logo {
-    font-size: 1.6rem;
-  }
-
-  .tagline {
-    font-size: 0.65rem;
-  }
-
-  .nav-list {
-    gap: 1.5rem;
-  }
-
-  .nav-list a {
-    font-size: 0.85rem;
-  }
-
-  .profile-container {
-    grid-template-columns: 1fr 1fr;
+  
+  .content-box {
     gap: 3rem;
   }
 
-  .image-box {
-    position: sticky;
-    top: 120px;
+  .intro-box h1 {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    padding: 1.2rem;
+    gap: 1.2rem;
   }
 
-  .info-column {
-    text-align: left;
-    padding: 1rem;
+  .nav-brand {
+    align-items: center;
+    text-align: center;
+  }
+
+  .nav-list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .content-box {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .image-box {
+    max-width: 400px;
+    margin: 0 auto;
+    order: -1; /* Move image to top on mobile */
+  }
+
+  .intro-box {
+    text-align: center;
+    padding: 0 0.5rem;
   }
 
   .divider {
-    margin: 2rem 0;
-    width: 80px;
+    margin: 1.5rem auto;
   }
 
-  .info-title::after {
-    left: 0;
-    transform: none;
+  .cta-button {
+    margin: 0 auto;
+  }
+}
+
+/* Phone-specific optimizations */
+@media (max-width: 480px) {
+  :root {
+    font-size: 14px; /* Base font size adjustment for small screens */
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .tagline {
+    font-size: 0.6rem;
+  }
+
+  .nav-list {
+    gap: 0.8rem 1.2rem;
+  }
+
+  .nav-list a {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .intro-box h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .bio {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .image-box {
+    max-width: 320px;
+    transform: translateY(0) scale(0.95);
   }
 
   footer {
-    padding: 2.5rem 1.5rem;
-  }
-}
-
-/* Responsive Design - Large Tablets and Small Laptops */
-@media (min-width: 1024px) {
-  .container {
-    padding: 3rem 4rem;
-  }
-
-  .info-column h1 {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.1rem;
-  }
-
-  .info-title {
-    font-size: 1.7rem;
-  }
-
-  .social-links a {
-    width: 48px;
-    height: 48px;
-    font-size: 1.15rem;
-  }
-}
-
-/* Responsive Design - Desktop */
-@media (min-width: 1200px) {
-  .container {
-    padding: 4rem 5rem;
-  }
-
-  .info-column h1 {
-    font-size: 2.8rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-  }
-
-  .info-title {
-    font-size: 1.8rem;
+    padding: 2rem 1rem;
   }
 
   .social-links {
-    gap: 1.5rem;
+    gap: 0.8rem;
   }
 
   .social-links a {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .copyright {
+    font-size: 0.75rem;
+  }
+
+  .rights {
+    font-size: 0.65rem;
   }
 }
 
-/* Mobile Menu - Small Screens Only */
-@media (max-width: 767px) {
-  .nav-list {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 70%;
-    max-width: 300px;
-    height: 100vh;
-    background-color: rgba(10, 10, 10, 0.98);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    transition: var(--transition);
-    z-index: 100;
-    padding: 2rem;
-    border-left: 1px solid rgba(245, 151, 149, 0.1);
+/* Extra small devices (phones under 360px) */
+@media (max-width: 360px) {
+  :root {
+    font-size: 13px;
   }
 
-  .nav-list.active {
-    right: 0;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-}
-
-/* Extra Small Phones (under 360px) */
-@media (max-width: 359px) {
-  html {
-    font-size: 14px;
+  .container {
+    padding: 0 1rem;
   }
 
   .logo {
     font-size: 1.3rem;
   }
 
-  .info-column h1 {
+  .nav-list {
+    gap: 0.6rem 1rem;
+  }
+
+  .intro-box h1 {
     font-size: 1.8rem;
   }
 
-  .info-title {
-    font-size: 1.3rem;
+  .image-box {
+    max-width: 280px;
+  }
+
+  .cta-button {
+    padding: 0.7rem 1.8rem;
+    font-size: 0.8rem;
   }
 
   .social-links a {
-    width: 40px;
-    height: 40px;
-    font-size: 0.95rem;
+    width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
   }
 }
 
-/* Landscape Orientation for Phones */
-@media (max-height: 500px) and (orientation: landscape) {
-  .profile-container {
-    grid-template-columns: 1fr 1fr;
+/* Very small devices (phones under 320px) */
+@media (max-width: 320px) {
+  :root {
+    font-size: 12px;
+  }
+
+  .nav-list {
+    gap: 0.5rem 0.8rem;
+  }
+
+  .intro-box h1 {
+    font-size: 1.6rem;
   }
 
   .image-box {
+    max-width: 260px;
+  }
+}
+
+/* Orientation-specific adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .content-box {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+  
+  .image-box {
     max-width: 300px;
+    transform: translateY(0) scale(0.85);
   }
-
-  .info-column {
+  
+  .intro-box {
     text-align: left;
+    padding: 0;
   }
-
+  
   .divider {
     margin: 1rem 0;
   }
+}
 
-  .info-title::after {
-    left: 0;
-    transform: none;
+/* High-density displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Enhancements for retina displays */
+  .logo, .nav-list a, .cta-button, .social-links a {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Reduced Motion */
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  /* Ensures compatibility with system dark mode */
+  body {
+    background-color: var(--dark);
+    color: var(--light);
+  }
+}
+
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .typing-animation {
-    animation: none !important;
-    border-right: none;
-    white-space: normal;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Dark Mode Compatibility */
-@media (prefers-color-scheme: dark) {
-  /* Your existing dark colors work perfectly */
-}
+
