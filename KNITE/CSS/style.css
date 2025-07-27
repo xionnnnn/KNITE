@@ -168,7 +168,7 @@ nav {
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 0rem 5rem; /* Reduced from 4rem to move content up */
   flex: 1;
 }
 
@@ -183,14 +183,11 @@ nav {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  transform: translateY(0);
+  box-shadow: 0 15px 50px 10px rgba(245, 151, 149, 0.3);
+  transform: translateY(0) scale(0.9); /* 10% smaller */
   transition: var(--transition), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.image-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.6);
+  transform-origin: center;
+  margin: 0 auto;
 }
 
 .profile-image {
@@ -484,3 +481,5 @@ footer {
     font-size: 1.1rem;
   }
 }
+
+

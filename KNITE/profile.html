@@ -1,55 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PROFILE | KNITE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/profile.css" />
+  </head>
+  <body>
     <div class="page-transition-overlay"></div>
-    
+
     <header>
-        <nav>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="profile.html">PROFILE</a></li>
-                <li><a href="gallery.html">GALLERY</a></li>
-                <li><a href="appearances.html">APPEARANCES</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <div class="nav-brand">
+          <div class="logo">KNITE</div>
+          <span class="tagline">Cosplay · Model · Stream</span>
+        </div>
+        <ul class="nav-list">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="profile.html" class="active">PROFILE</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="appearances.html">APPEARANCES</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main class="container">
-        <div class="content-box">
-            <h1>Artist Profile</h1>
-            <p class="subtitle">Learn more about KNITE's background and journey.</p>
-            <div class="divider"></div>
-            <div class="bio">
-                <!-- Add your profile content here -->
-                <p>Professional cosplayer, model and streamer with over 10 years of experience...</p>
-            </div>
+      <div class="profile-container">
+        <div class="image-box">
+          <img
+            src="https://static.wixstatic.com/media/dc102d_c4e4e27c3cac4e5da89692fff8480e38~mv2.jpg/v1/crop/x_0,y_256,w_4032,h_2540/fill/w_1416,h_892,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_9812ver2.jpg"
+            alt="KNITE"
+            class="profile-image"
+          />
+          <div class="image-overlay"></div>
         </div>
+
+        <div class="info-column">
+          <h1 class="typing-text typing-animation">ARTIST PROFILE</h1>
+          <div class="divider"></div>
+
+          <div class="info-section" id="basic-info">
+            <h2 class="info-title">Basic Information</h2>
+            <div class="info-content">
+              <div class="info-grid">
+                <div class="info-item">
+                  <h3>Name</h3>
+                  <p>André Knite</p>
+                </div>
+                <div class="info-item">
+                  <h3>Alias</h3>
+                  <p>KNITE</p>
+                </div>
+                <div class="info-item">
+                  <h3>Birthday</h3>
+                  <p>12th August 1997</p>
+                </div>
+                <div class="info-item">
+                  <h3>Ethnicity</h3>
+                  <p>Greek</p>
+                </div>
+                <div class="info-item">
+                  <h3>Height</h3>
+                  <p>176cm</p>
+                </div>
+                <div class="info-item">
+                  <h3>Weight</h3>
+                  <p>54kg</p>
+                </div>
+                <div class="info-item">
+                  <h3>Blood Type</h3>
+                  <p>AB+</p>
+                </div>
+                <div class="info-item">
+                  <h3>MBTI</h3>
+                  <p>INFP</p>
+                </div>
+                <div class="info-item">
+                  <h3>Zodiac</h3>
+                  <p>Leo</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section" id="professional-info">
+            <h2 class="info-title">Professional</h2>
+            <div class="info-content">
+              <div class="info-grid">
+                <div class="info-item">
+                  <h3>Education</h3>
+                  <p>
+                    Certificate 4 and Diploma of Make-Up and Special Effects,
+                    Certificate 4 of Digital Design
+                  </p>
+                </div>
+                <div class="info-item">
+                  <h3>Occupation</h3>
+                  <p>
+                    Professional Cosplayer, Model, Streamer and Make-Up Artist
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section" id="personal-info">
+            <h2 class="info-title">Personal</h2>
+            <div class="info-content">
+              <div class="info-grid">
+                <div class="info-item">
+                  <h3>Hobbies</h3>
+                  <p>
+                    Cosplay, Fashion, Movies, Tarot Reading, Crystals, Games,
+                    Photography, Reading, Dance and Anime/Manga
+                  </p>
+                </div>
+                <div class="info-item">
+                  <h3>Likes</h3>
+                  <p>Raccoons, Coffee, Spicy Food, Drinking, Horror Movies</p>
+                </div>
+                <div class="info-item">
+                  <h3>Dislikes</h3>
+                  <p>Spiders, Hayfever, Clowns, Porcelain Dolls</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section" id="bio">
+            <h2 class="info-title">Biography</h2>
+            <div class="info-content">
+              <p>
+                Professional cosplayer, model and streamer with over 15 years of
+                experience in the industry. KNITE has established himself as a
+                prominent figure in the cosplay community, known for his
+                attention to detail and creative interpretations of characters.
+              </p>
+              <p>
+                With a background in Make-Up and Special Effects, KNITE brings a
+                unique perspective to cosplay, combining technical skills with
+                artistic vision to create stunning transformations.
+              </p>
+              <p>
+                When not working on costumes or attending conventions, KNITE
+                enjoys streaming games and connecting with fans through various
+                social media platforms.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer>
+      <div class="social-container">
         <div class="social-links">
-            <a href="https://www.instagram.com/knitecoser" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com/knitemaya" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.twitch.tv/knitecoser" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-            <a href="https://www.tiktok.com/@knitecoser" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://x.com/knitecoser" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/knitecoser" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.instagram.com/knitecoser" aria-label="Instagram"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="https://www.facebook.com/knitemaya" aria-label="Facebook"
+            ><i class="fab fa-facebook"></i
+          ></a>
+          <a href="https://www.twitch.tv/knitecoser" aria-label="Twitch"
+            ><i class="fab fa-twitch"></i
+          ></a>
+          <a href="https://www.tiktok.com/@knitecoser" aria-label="TikTok"
+            ><i class="fab fa-tiktok"></i
+          ></a>
+          <a href="https://x.com/knitecoser" aria-label="Twitter"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a href="https://www.youtube.com/knitecoser" aria-label="YouTube"
+            ><i class="fab fa-youtube"></i
+          ></a>
         </div>
-        <div class="footer-right">
-            <div class="copyright">&copy; 2025 KNITE</div>
-            <div class="rights">All rights reserved</div>
+        <div class="footer-bottom">
+          <div class="copyright">&copy; 2025 KNITE</div>
+          <div class="rights">All rights reserved</div>
         </div>
+      </div>
     </footer>
-
-    <script src="js/script.js"></script>
-</body>
+    <script src="js/profile.js"></script>
+  </body>
 </html>
