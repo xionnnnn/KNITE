@@ -1,16 +1,18 @@
 <!-- nav.html -->
 <header>
     <nav>
+        <!-- Mobile menu button (left-aligned) -->
+        <button class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Centered logo -->
         <div class="nav-brand">
             <span class="logo">KNITE</span>
             <span class="tagline">Cosplay · Model · Stream</span>
         </div>
         
-        <!-- Mobile menu button (hidden by default) -->
-        <button class="mobile-menu-button" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-        
+        <!-- Navigation links -->
         <ul class="nav-list">
             <li><a href="index.html" data-page="index">HOME</a></li>
             <li><a href="profile.html" data-page="profile">PROFILE</a></li>
@@ -18,11 +20,14 @@
             <li><a href="appearances.html" data-page="appearances">APPEARANCES</a></li>
             <li><a href="contact.html" data-page="contact">CONTACT</a></li>
         </ul>
+        
+        <!-- Overlay for closing menu when clicking outside -->
+        <div class="menu-overlay"></div>
     </nav>
 </header>
 
 <style>
-    /* Mobile menu button - hidden by default */
+    /* Mobile menu button - left-aligned */
     .mobile-menu-button {
         display: none;
         background: none;
@@ -31,13 +36,17 @@
         font-size: 1.5rem;
         cursor: pointer;
         transition: var(--transition);
+        position: absolute;
+        left: 1rem;
+        z-index: 101;
+        padding: 0.5rem;
     }
     
     .mobile-menu-button:hover {
         color: var(--primary);
     }
     
-    /* Active page style (already in your CSS) */
+    /* Active page style */
     .nav-list a.active {
         color: var(--primary);
         font-weight: 700;
@@ -47,111 +56,158 @@
         width: 100%;
     }
     
+    /* Menu overlay */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 99;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .menu-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
+        nav {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            padding: 1rem 3rem;
+        }
+        
         .mobile-menu-button {
             display: block;
         }
         
+        .nav-brand {
+            text-align: center;
+            margin: 0 auto;
+            z-index: 100;
+        }
+        
         .nav-list {
             position: fixed;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            background-color: rgba(10, 10, 10, 0.98);
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: var(--dark);
             flex-direction: column;
-            align-items: center;
-            padding: 2rem 0;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 5rem 2rem;
             gap: 1.5rem;
-            clip-path: circle(0px at 90% -10%);
-            -webkit-clip-path: circle(0px at 90% -10%);
-            transition: all 0.8s ease-out;
-            pointer-events: none;
-            border-bottom: 1px solid rgba(245, 151, 149, 0.1);
+            transition: all 0.3s ease;
+            pointer-events: all;
+            z-index: 100;
+            margin-top: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            border-right: 1px solid rgba(245, 151, 149, 0.1);
         }
         
         .nav-list.active {
-            clip-path: circle(1000px at 90% -10%);
-            -webkit-clip-path: circle(1000px at 90% -10%);
-            pointer-events: all;
+            left: 0;
         }
         
-        nav {
-            flex-wrap: wrap;
-            padding: 1rem 2rem;
+        .nav-list li {
+            width: 100%;
         }
         
-        .nav-brand {
-            flex: 1;
+        .nav-list a {
+            display: block;
+            padding: 0.5rem 0;
+            width: 100%;
         }
         
-        /* Mobile active state */
-        .nav-list a.active {
-            color: var(--primary);
-            font-weight: 700;
+        /* Logo adjustments for mobile */
+        .logo {
+            font-size: 1.6rem;
+        }
+        
+        .tagline {
+            font-size: 0.6rem;
         }
     }
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu toggle
+        // Mobile menu elements
         const menuButton = document.querySelector('.mobile-menu-button');
         const navList = document.querySelector('.nav-list');
+        const menuOverlay = document.querySelector('.menu-overlay');
         
-        if (menuButton && navList) {
-            menuButton.addEventListener('click', function() {
-                navList.classList.toggle('active');
-                menuButton.innerHTML = navList.classList.contains('active') 
-                    ? '<i class="fas fa-times"></i>' 
-                    : '<i class="fas fa-bars"></i>';
+        // Toggle mobile menu
+        function toggleMenu() {
+            const isOpen = navList.classList.toggle('active');
+            menuOverlay.classList.toggle('active', isOpen);
+            menuButton.setAttribute('aria-expanded', isOpen);
+            menuButton.innerHTML = isOpen ? '<i class="fas fa-arrow-left"></i>' : '<i class="fas fa-bars"></i>';
+            
+            // Toggle body scroll
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+        
+        // Close menu function
+        function closeMenu() {
+            navList.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            menuButton.setAttribute('aria-expanded', 'false');
+            menuButton.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = '';
+        }
+        
+        // Event listeners
+        if (menuButton && navList && menuOverlay) {
+            // Menu button click
+            menuButton.addEventListener('click', toggleMenu);
+            
+            // Overlay click to close
+            menuOverlay.addEventListener('click', closeMenu);
+            
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-list a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+            
+            // Close menu when scrolling
+            window.addEventListener('scroll', function() {
+                if (navList.classList.contains('active')) {
+                    closeMenu();
+                }
             });
         }
         
         // Highlight current page
         function setActivePage() {
-            // Get current page filename without extension
             const path = window.location.pathname;
             let currentPage = path.split("/").pop();
             currentPage = currentPage.replace('.html', '');
             
-            // If index page (empty or just '/')
             if (currentPage === '' || currentPage === '/') {
                 currentPage = 'index';
             }
             
-            // Remove active class from all links
             document.querySelectorAll('.nav-list a').forEach(link => {
                 link.classList.remove('active');
             });
             
-            // Add active class to current page link
             const activeLink = document.querySelector(`.nav-list a[data-page="${currentPage}"]`);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
         }
         
-        // Set active page on load
         setActivePage();
-        
-        // Update active state when navigating (for SPA-like behavior)
-        document.querySelectorAll('.nav-list a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Remove active class from all links
-                document.querySelectorAll('.nav-list a').forEach(link => {
-                    link.classList.remove('active');
-                });
-                
-                // Add active class to clicked link
-                this.classList.add('active');
-                
-                // Close mobile menu if open
-                if (navList && navList.classList.contains('active')) {
-                    navList.classList.remove('active');
-                    menuButton.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
-        });
     });
 </script>
